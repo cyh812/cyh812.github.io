@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="HTML,CSS,JavaScript,THREE.js">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>基于连续文化序列的数据可视化</title>
+	<!-- <meta name='viewport' content='width=device-width'/>. -->
+	<!-- <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,600&display=swap" rel="stylesheet"> -->
+
+
+	<!-- Google Tag Manager -->
+
+
+	<!-- <script> // 实现节点的详细内容跳转
+	  (function (w, d, s, l, i) {
+	    w[l] = w[l] || [];
+	    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+	    var f = d.getElementsByTagName(s)[0],
+	      j = d.createElement(s),
+	      dl = l != "dataLayer" ? "&l=" + l : "";
+	    j.async = true;
+	    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+
+	    j.addEventListener("load", function () {
+	      var _ge = new CustomEvent("gtm_loaded", { bubbles: true });
+	      d.dispatchEvent(_ge);
+	    });
+
+	    f.parentNode.insertBefore(j, f);
+	  })(window, document, "script", "dataLayer", "GTM-NWDMT9Q");
+	</script> -->
+	<!-- End Google Tag Manager -->
+</head>
+
+<body>
+	<!-- 该部分就是左上那个三条杠，点击旋转就会出现菜单栏的 -->
+	<div id="hamburger" class=".btn">
+		<!-- 让这个链接不要链接到新页面转而执行一段js代码 -->
+		<a href="javascript:toggleMenu()">  
+			<!-- 三条杠的svg图像 -->
+			<img src="textures/caidan.svg"  alt="menu" />
+		</a>
+	</div>
+
+	<!-- <nav> 标签定义导航链接的部分 -->
+	<nav id="menu">
+		<ul>
+			<!-- <li><a href="javascript: showBox('controls')" id="ui">Controls</a></li> -->
+			<li><a href="javascript: void(0);" onclick="showBox('controls')" id="ui"><img src="textures/control.svg" ></a></li>
+			<li><a href="javascript: intro()" id="ui"><img src="textures/jichu.svg" ></a></li>
+
+			<li><a href="javascript: showBox('credits')" id="ui"><img src="textures/shuoming.svg" ></a></li>  
+			<!-- 显示创作者 -->
+			<li><a href="dat/data.zip" class="desktop" target="_blank" id="ui" data-track="click"
+					data-track-action="download data" data-track-label="button" data-track-category="menu">
+					<img src="textures/down.svg" ></a>
+					<!-- <img src="textures/download.svg" class="dwnld" /> -->
+			</li>
+		</ul>
+	</nav>
+
+	<!-- 右上部分 暂时不管有缺失-->
+	<!-- <div id="legend">
+		<a href="javascript:collapse('legend ul','legend .collapse',true)"><img src="textures/collapse.svg"
+				alt="show/hide legend" class="collapse" style="float:right;" /></a>
+		<p>Legend</p>
+		<a id="tab-nav" class="desktop" href="javascript:$('#info').focus();nextDiamond();" data-track="click"
+			data-track-action="zoom to feature" data-track-label="button" data-track-category="legend">Featured paper
+			<img style="margin-left:5px;" src="textures/particle4.png" alt="featured paper icon" /></a>
+		<a id="toggle-gyro" class="gyro" style="margin-top:10px; display:inline-block; display:none;"
+			href="javascript:toggleGyro()">Device motion off</a>
+		<ul>
+			<li><img style="float: right; margin:0 5px;" src="textures/particle4.png"/><p>Featured Paper</p></li>
+			<li><img style="float: right; margin:0 5px;" src="textures/particle4-network.png"/><p>Network Feature</p></li>
+		</ul>
+	</div> -->
+
+	<!-- 在单击菜单栏后弹出的部分 -->
+	<div id="lightBox"></div>
+
+	<!-- 菜单栏的controls模块详细内容 -->
+	<div id="controls">
+		<ul class="controls">
+			<li>
+				<p>旋转</p>
+				<ul>
+					<li class="desktop"><img src="textures/mouse-lb.svg" alt="click and drag to rotate view" id="ui">
+					</li>
+					<li><img src="textures/swipe.svg" alt="on touch devices swipe to rotate view" id="ui"></li>
+					<li class="gyro"><img src="textures/device-orient.svg"
+							alt="if gyroscope is present, rotate device to look rotate view" id="ui"></li>
+					<!-- <li class="safari-gyro">To activate device motion in iOS 12.2+, please enable Motion and Orientation access in Settings > Safari and reload the page</li> -->
+				</ul>
+			</li>
+			<li>
+				<p>移动</p>
+				<ul>
+					<li class="desktop"><img src="textures/mouse-rb.svg"
+							alt="drag with right mouse button to pan the view" id="ui"></li>
+					<li class="desktop"><img src="textures/arrows.svg" alt="use arrow keys to pan the view" id="ui">
+					</li>
+					<li><img src="textures/three-finger.svg" alt="swipe with three fingers to pan the view" id="ui">
+					</li>
+				</ul>
+			</li>
+			<li>
+				<p>缩放</p>
+				<ul>
+					<li class="desktop"><img src="textures/mouse-mb.svg" alt="scroll to zoom" id="ui"></li>
+					<li><img src="textures/pinch.svg" alt="on touch devices, pinch to zoom" id="ui"></li>
+				</ul>
+			</li>
+		</ul>
+		<!-- <h2>Other Features</h2>
+    <ul>
+      <li>Zoom to every focus paper using the "Zoom to Diamonds" button in the Legend</li>
+      <li>Zoom to connected papers by clicking on the titles in the "Cocited with" list</li>
+    </ul> -->
+	</div>
+
+	<!-- 菜单栏的credits模块的详细内容 -->
+	<div id="credits">
+		<div class="credits ui">
+			<p><b>设计制作</b><br />
+				<a id="ui" target="_blank">陈泳豪</a><br />
+			<p><b>数据分析</b><br />
+				<a id="ui" target="_blank">陈泳豪</a><br />
+			<p><b>灵感来源nature150周年纪念</b><br />
+				Kelly Krause & the Nature team<br /></p>
+				<a id="ui" href="http://alexandergates.net/" target="_blank">Alexander Gates</a><br />
+				<a id="ui" href="https://qke.github.io/" target="_blank">Qing Ke</a><br />
+				<a id="ui" href="http://www.onurvarol.com/" target="_blank">Onur Varol</a><br />
+				<a id="ui" href="http://barabasi.com/" target="_blank">Albert-László Barabási</a><br /></p>
+				<a id="ui" href="http://www.murmurus.com/webfolio/portfolio.html" target="_blank">Alice
+					Grishchenko</a><br />
+				<a id="ui" href="http://www.mamartino.com/" target="_blank">Mauro Martino</a></p>
+		</div>
+	</div>
+
+
+	<!-- 正下方搜索模块 -->
+	<div id="info-parent">
+		<div id="info"></div>
+		<div class="collapse" style="display:none">
+			<a href="javascript:collapse('info','info-parent .collapse',true)"><img src="textures/下箭头.svg"
+					alt="show/hide info" /></a>
+		</div>
+		<!-- <label for="search" id="search-label" style="opacity:0.01;">Search paper titles</label> -->
+		<input type="text" id="search" onchange="search(this.value);" data-track="click" data-track-action="search"
+			data-track-label="input" data-track-category="info"></input>
+	</div>
+
+	<!-- 中间可视化部分 -->
+	<div id="container"></div>
+	<div class="door">
+		<!-- <div class="left"></div>
+		<div class="right"></div> -->
+	</div>
+	
+
+	<a id="downloadAnchorElem" style="display:none"></a>
+
+
+
+	<!-- // attribute float size;
+	// attribute vec3 customColor;
+	// varying vec3 vColor;
+// attribute float alpha;
+// varying float vAlpha;
+	// void main() {
+//   vAlpha = alpha;
+	// 	vColor = customColor;
+	// 	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+	// 	gl_PointSize = size * ( 300.0 / -mvPosition.z );
+	// 	gl_Position = projectionMatrix * mvPosition;
+	// } -->
+
+	<!-- 两个自定义script实现上色功能，注意这两个script的type类型不是text/JavaScript，所以代码颜色是白色的 -->
+	<script type="x-shader/x-vertex" id="vertexshader">
+
+            attribute float size;  //定义float类型变量size
+			attribute vec4 customColor;
+			varying vec4 vColor;  //定义插值类型变量vcolor
+			void main() {
+				vColor = customColor; //attribute变量赋值给varying变量实现插值
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_PointSize = size * ( 300.0 / -mvPosition.z );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+
+		</script>
+
+
+		<!-- // //uniform vec3 directionalLightColor[ MAX_DIR_LIGHTS ];
+		// //uniform vec3 directionalLightDirection[ MAX_DIR_LIGHTS ];
+		// uniform vec3 color;
+			  // uniform sampler2D texture;
+			  // varying vec3 vColor;
+		// varying float vAlpha;
+			  // void main() {
+			  // 	gl_FragColor = vec4( color * vColor, vAlpha);
+			  // 	gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+			  // }
+			  // float fogFactor = 0;
+			  //gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor ); -->
+
+	<script type="x-shader/x-fragment" id="fragmentshader">
+        	uniform vec3 color; //类同attribute但是是声明非顶点数据变量，比如光源的数据
+			uniform sampler2D texture;
+			varying vec4 vColor;  //第二次声明用于接收上面的值
+			void main() {
+				vec4 outColor = texture2D( texture, gl_PointCoord );
+				if ( outColor.a < 0.5 ) discard;
+				gl_FragColor = outColor * vec4( color * vColor.xyz, 1.0 );
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				const vec3 fogColor = vec3( 0.0 );
+				float fogFactor = smoothstep( 2000.0, 60000000.0, depth );
+
+			}
+		</script>
+
+	<script type="text/javascript" src="js/vendor/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript"  src="js/vendor/three.js"></script>
+	<script type="text/javascript"  src="js/vendor/DeviceOrientationControls.js"></script>
+	<script type="text/javascript"  src="js/vendor/OrbitControls.js"></script>
+	<script type="text/javascript"  src="js/ui.js"></script>
+	<script type="text/javascript"  src="js/my_impact-vr.js"></script>
+</body>
+
+</html>
