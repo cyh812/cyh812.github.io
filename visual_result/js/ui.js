@@ -4,7 +4,7 @@ function change(a){
   window.open('artwork.html');
 }
 function nodata(){
-  alert("数据暂不允许下载");
+  alert('数据暂不允许下载');
 }
 function showBox(which){
   if($('#info').is(':visible')){ // 如果下方搜索栏处于展开状态，需要执行该函数
