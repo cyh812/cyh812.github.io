@@ -3,11 +3,47 @@
 
 <head>
   <meta charset="utf-8">
+  <style>
+    #button-container {
+      position: absolute;
+      top: 25px;
+      right: 250px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      /* Arranges buttons vertically */
+      gap: 10px;
+      /* Adjust this value to control the spacing between buttons */
+    }
+
+    #button-container button {
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background-color: #74e7ed;
+      /* Default button color */
+      color: rgb(0, 0, 0);
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    #button-container button:hover {
+      background-color: #efa58e;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+  </style>
 </head>
 
 <body style="height: 100%; margin: 0">
-  <div id="container" style="height: 100%"></div>
+  <div id="container" style="height: 100%">
+  </div>
 
+  <div id="button-container">
+    <button id="button1">全部显示</button>
+    <button id="button2">全部隐藏</button>
+  </div>
   <script type="text/javascript" src="https://registry.npmmirror.com/jquery/3.7.1/files/dist/jquery.min.js"></script>
   <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.5.1/files/dist/echarts.min.js"></script>
 
@@ -134,6 +170,24 @@
         ]
       };
       myChart.setOption(option);
+
+      // 绑定按钮点击事件
+      document.getElementById('button1').addEventListener('click', function () {
+        // 使用 dispatchAction 实现全部显示
+        myChart.dispatchAction({
+          type: 'legendAllSelect'
+        });
+      });
+
+      document.getElementById('button2').addEventListener('click', function () {
+        // 使用 dispatchAction 实现全部隐藏
+        myChart.dispatchAction({
+          type: 'legendAllSelect'  // 确保所有 legend 初始为选中
+        });
+        myChart.dispatchAction({
+          type: 'legendInverseSelect'  // 反转选中状态，达到全部隐藏的效果
+        });
+      });
     });
 
 
