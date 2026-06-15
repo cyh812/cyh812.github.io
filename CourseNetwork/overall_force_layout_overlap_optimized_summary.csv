@@ -1,0 +1,4 @@
+﻿network,html,nodes,edges,core_labels,discipline_labels,all_labels,approx_overlapping_node_pairs_after,min_approx_node_gap_px_after
+project_level1,overall/visualizations/project_level1_force_directed_overlap_optimized.html,267,320,67,34,267,0,3.18
+project_level2,overall/visualizations/project_level2_force_directed_overlap_optimized.html,358,473,75,125,358,0,3.61
+tripartite_merged,overall/visualizations/tripartite_merged_force_directed_overlap_optimized.html,392,445,97,159,392,0,2.27

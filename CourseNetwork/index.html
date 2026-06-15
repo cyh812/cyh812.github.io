@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>总体课程网络可视化</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #eef2f7;
+  --panel: #ffffff;
+  --text: #172033;
+  --muted: #647084;
+  --line: #d9e0ea;
+  --accent: #1769aa;
+  --accent-dark: #0d4f84;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, rgba(23, 105, 170, 0.10), transparent 38%),
+    linear-gradient(315deg, rgba(20, 132, 114, 0.10), transparent 36%),
+    var(--bg);
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+}
+
+.card {
+  width: min(980px, 100%);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(29, 45, 68, 0.12);
+  padding: clamp(24px, 4vw, 42px);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(26px, 4vw, 40px);
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.lead {
+  margin: 16px 0 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 28px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border: 1px solid #cbdcec;
+  border-radius: 999px;
+  background: #f2f7fb;
+  color: #315978;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.links a {
+  display: flex;
+  min-height: 112px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+  color: var(--text);
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.links a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(23, 105, 170, 0.45);
+  box-shadow: 0 12px 28px rgba(23, 105, 170, 0.12);
+}
+
+.links strong {
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.links span {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+
+  .links a {
+    min-height: 92px;
+  }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="card" aria-labelledby="page-title">
+    <h1 id="page-title">总体课程网络可视化</h1>
+    <p class="lead">
+      三个网络视图均采用力导向布局与防重叠优化。默认只显示核心标签以减少遮挡，完整节点名称和人数信息可通过悬停查看，也可以在图内按钮切换标签显示范围。
+    </p>
+    <div class="badges" aria-label="功能说明">
+      <span class="badge">节点防重叠</span>
+      <span class="badge">核心标签默认显示</span>
+      <span class="badge">悬停查看完整名称</span>
+      <span class="badge">类别颜色与形状区分</span>
+    </div>
+    <ul class="links">
+      <li>
+        <a href="overall/visualizations/project_level1_force_directed_overlap_optimized.html">
+          <strong>培养项目 - 一级学科二分网络</strong>
+          <span>打开视图</span>
+        </a>
+      </li>
+      <li>
+        <a href="overall/visualizations/project_level2_force_directed_overlap_optimized.html">
+          <strong>培养项目 - 二级学科二分网络</strong>
+          <span>打开视图</span>
+        </a>
+      </li>
+      <li>
+        <a href="overall/visualizations/tripartite_merged_force_directed_overlap_optimized.html">
+          <strong>培养项目 - 一级学科 - 二级学科三层网络</strong>
+          <span>打开视图</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
